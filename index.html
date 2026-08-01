@@ -1,1511 +1,457 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <meta charset="utf-8">
-  <meta content="width=device-width, initial-scale=1.0" name="viewport">
-  <title>Index - iPortfolio Bootstrap Template</title>
-  <meta content="" name="description">
-  <meta content="" name="keywords">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Portfolio of Vladyslav Garanovskyi — computer engineering, embedded systems, AI, web development, and game development." />
+  <title>Vladyslav Garanovskyi | Computer Engineer</title>
+  <link rel="icon" href="assets/img/favicon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #071018;
+      --bg-soft: #0b1722;
+      --surface: rgba(15, 31, 44, 0.74);
+      --surface-solid: #0e1c28;
+      --line: rgba(171, 208, 232, 0.14);
+      --text: #eef8ff;
+      --muted: #a6b9c7;
+      --accent: #62e5b5;
+      --accent-2: #68a8ff;
+      --shadow: 0 24px 80px rgba(0, 0, 0, 0.28);
+      --radius: 24px;
+      --max: 1180px;
+    }
 
-  <link href="assets/img/favicon.png" rel="icon">
-  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 15% 10%, rgba(98, 229, 181, 0.10), transparent 28%),
+        radial-gradient(circle at 85% 16%, rgba(104, 168, 255, 0.13), transparent 30%),
+        var(--bg);
+      font-family: "Manrope", sans-serif;
+      line-height: 1.65;
+    }
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      opacity: .23;
+      background-image: linear-gradient(rgba(255,255,255,.025) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.025) 1px, transparent 1px);
+      background-size: 42px 42px;
+      mask-image: linear-gradient(to bottom, black, transparent 78%);
+    }
+    a { color: inherit; }
+    img { max-width: 100%; display: block; }
+    button, input { font: inherit; }
 
-  <link href="https://fonts.googleapis.com" rel="preconnect">
-  <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    .container { width: min(calc(100% - 40px), var(--max)); margin-inline: auto; }
+    .section { padding: 92px 0; }
+    .eyebrow {
+      display: inline-flex; align-items: center; gap: 9px;
+      color: var(--accent); font-size: .76rem; font-weight: 800;
+      letter-spacing: .15em; text-transform: uppercase;
+    }
+    .eyebrow::before { content: ""; width: 26px; height: 1px; background: currentColor; }
+    h1,h2,h3 { font-family: "Space Grotesk", sans-serif; line-height: 1.08; margin: 0; }
+    .section-title { font-size: clamp(2rem, 5vw, 3.5rem); margin-top: 12px; }
+    .section-copy { max-width: 720px; color: var(--muted); margin: 18px 0 0; }
 
-  <!-- Vendor CSS Files -->
-  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-  <link href="assets/vendor/aos/aos.css" rel="stylesheet">
-  <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
-  <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+    .site-header {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(7, 16, 24, .78);
+      backdrop-filter: blur(18px);
+      border-bottom: 1px solid var(--line);
+    }
+    .nav { min-height: 72px; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+    .brand { text-decoration: none; font-family: "Space Grotesk"; font-weight: 800; letter-spacing: -.03em; }
+    .brand span { color: var(--accent); }
+    .nav-links { display: flex; align-items: center; gap: 28px; }
+    .nav-links a { color: var(--muted); text-decoration: none; font-size: .93rem; font-weight: 700; }
+    .nav-links a:hover { color: var(--text); }
+    .nav-cta { border: 1px solid var(--line); padding: 10px 15px; border-radius: 999px; }
+    .menu-btn { display: none; color: var(--text); background: none; border: 0; font-size: 1.5rem; }
 
-  <!-- Main CSS File -->
-  <link href="assets/css/main.css" rel="stylesheet">
+    .hero { min-height: calc(100vh - 72px); display: grid; align-items: center; padding: 76px 0 64px; overflow: hidden; }
+    .hero-grid { display: grid; grid-template-columns: 1.25fr .75fr; align-items: center; gap: 72px; }
+    .hero h1 { font-size: clamp(3.25rem, 8vw, 6.9rem); letter-spacing: -.065em; max-width: 900px; }
+    .hero h1 .gradient { color: transparent; background: linear-gradient(100deg, var(--accent), #b6f5ff 48%, var(--accent-2)); -webkit-background-clip: text; background-clip: text; }
+    .hero-lede { max-width: 710px; color: var(--muted); font-size: clamp(1.05rem, 2vw, 1.24rem); margin: 25px 0 0; }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 13px; margin-top: 34px; }
+    .btn { display: inline-flex; align-items: center; justify-content: center; gap: 9px; padding: 13px 18px; border-radius: 999px; text-decoration: none; font-weight: 800; border: 1px solid var(--line); transition: .2s ease; }
+    .btn-primary { color: #03120d; background: var(--accent); border-color: transparent; }
+    .btn:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(0,0,0,.2); }
+    .hero-card {
+      position: relative; padding: 14px; border: 1px solid var(--line); border-radius: 34px;
+      background: linear-gradient(145deg, rgba(255,255,255,.07), rgba(255,255,255,.018)); box-shadow: var(--shadow);
+    }
+    .hero-card::before { content: ""; position: absolute; inset: -25px; z-index: -1; border-radius: 50%; background: rgba(104,168,255,.12); filter: blur(50px); }
+    .hero-card img { aspect-ratio: 4 / 5; width: 100%; object-fit: cover; border-radius: 24px; }
+    .status-pill { position: absolute; left: -24px; bottom: 34px; display: flex; align-items: center; gap: 9px; background: #f3fbff; color: #0d2634; border-radius: 999px; padding: 11px 15px; font-size: .82rem; font-weight: 800; box-shadow: var(--shadow); }
+    .status-dot { width: 9px; height: 9px; border-radius: 50%; background: #16bd7b; box-shadow: 0 0 0 6px rgba(22,189,123,.13); }
 
-  <!-- =======================================================
-  * Template Name: iPortfolio
-  * Template URL: https://bootstrapmade.com/iportfolio-bootstrap-portfolio-websites-template/
-  * Updated: Jun 29 2024 with Bootstrap v5.3.3
-  * Author: BootstrapMade.com
-  * License: https://bootstrapmade.com/license/
-  ======================================================== -->
+    .about-grid { display: grid; grid-template-columns: .75fr 1.25fr; gap: 64px; align-items: start; }
+    .about-meta { display: grid; gap: 12px; margin-top: 28px; }
+    .meta-row { display: flex; justify-content: space-between; gap: 18px; padding-bottom: 12px; border-bottom: 1px solid var(--line); }
+    .meta-row span:first-child { color: var(--muted); }
+    .about-story { font-size: 1.12rem; color: #d8e8f2; }
+    .interests { display: flex; flex-wrap: wrap; gap: 9px; margin-top: 26px; }
+    .chip { padding: 8px 12px; border-radius: 999px; border: 1px solid var(--line); color: var(--muted); background: rgba(255,255,255,.02); font-size: .87rem; }
+
+    .skills-panel { margin-top: 42px; display: grid; grid-template-columns: repeat(5, 1fr); border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; background: var(--surface); box-shadow: var(--shadow); }
+    .skill-group { padding: 26px 22px; min-height: 220px; border-right: 1px solid var(--line); }
+    .skill-group:last-child { border-right: 0; }
+    .skill-icon { width: 42px; height: 42px; display: grid; place-items: center; border-radius: 13px; background: rgba(98,229,181,.1); color: var(--accent); font-weight: 800; }
+    .skill-group h3 { font-size: 1.05rem; margin: 18px 0 12px; }
+    .skill-group p { margin: 0; color: var(--muted); font-size: .9rem; }
+
+    .projects-head { display: flex; justify-content: space-between; align-items: end; gap: 24px; margin-bottom: 34px; }
+    .filters { display: flex; flex-wrap: wrap; gap: 8px; justify-content: flex-end; }
+    .filter-btn { border: 1px solid var(--line); color: var(--muted); background: rgba(255,255,255,.025); padding: 9px 12px; border-radius: 999px; cursor: pointer; font-weight: 700; }
+    .filter-btn.active, .filter-btn:hover { color: #04140e; background: var(--accent); border-color: var(--accent); }
+    .projects-grid { display: grid; gap: 26px; }
+    .project-card {
+      display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(300px, .95fr); gap: 0;
+      border: 1px solid var(--line); border-radius: 28px; overflow: hidden; background: var(--surface); box-shadow: 0 18px 55px rgba(0,0,0,.16);
+    }
+    .project-card[hidden] { display: none; }
+    .project-media { padding: 16px; border-right: 1px solid var(--line); background: rgba(255,255,255,.018); }
+    .main-image-wrap { position: relative; overflow: hidden; border-radius: 18px; background: #071018; }
+    .main-image { width: 100%; height: 380px; object-fit: contain; transition: opacity .15s ease, transform .35s ease; }
+    .main-image-wrap:hover .main-image { transform: scale(1.015); }
+    .image-count { position: absolute; top: 12px; right: 12px; border: 1px solid rgba(255,255,255,.15); background: rgba(7,16,24,.78); backdrop-filter: blur(8px); color: #dcebf3; padding: 7px 10px; border-radius: 999px; font-size: .75rem; font-weight: 800; }
+    .thumbs { display: flex; gap: 9px; margin-top: 10px; overflow-x: auto; scrollbar-width: thin; padding-bottom: 2px; }
+    .thumb { flex: 0 0 72px; width: 72px; height: 50px; padding: 0; border-radius: 9px; overflow: hidden; border: 2px solid transparent; background: #071018; cursor: pointer; opacity: .62; }
+    .thumb img { width: 100%; height: 100%; object-fit: cover; }
+    .thumb.active { border-color: var(--accent); opacity: 1; }
+    .project-body { padding: 34px; display: flex; flex-direction: column; }
+    .project-topline { display: flex; justify-content: space-between; gap: 16px; color: var(--muted); font-size: .82rem; font-weight: 800; text-transform: uppercase; letter-spacing: .08em; }
+    .project-body h3 { font-size: clamp(1.55rem, 3vw, 2.2rem); margin-top: 18px; }
+    .project-body p { color: var(--muted); margin: 17px 0 0; }
+    .project-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 22px; }
+    .project-tags span { font-size: .78rem; color: #cce0ea; padding: 7px 10px; border: 1px solid var(--line); border-radius: 999px; }
+    .project-links { display: flex; flex-wrap: wrap; gap: 10px; margin-top: auto; padding-top: 28px; }
+    .project-link { font-size: 2rem; text-decoration: underline; font-weight: 800; color: var(--accent); }
+    .project-link.muted { color: var(--muted); pointer-events: none; }
+
+    .contact-card { padding: 48px; display: grid; grid-template-columns: 1.4fr .6fr; gap: 30px; align-items: center; border-radius: 30px; border: 1px solid var(--line); background: linear-gradient(130deg, rgba(98,229,181,.12), rgba(104,168,255,.08)); box-shadow: var(--shadow); }
+    .contact-card h2 { font-size: clamp(2.25rem, 5vw, 4.4rem); }
+    .contact-links { display: grid; gap: 11px; justify-items: stretch; }
+    .contact-links a { text-decoration: none; text-align: center; border: 1px solid var(--line); border-radius: 999px; padding: 13px 15px; font-weight: 800; background: rgba(7,16,24,.45); }
+    footer { padding: 28px 0 42px; color: var(--muted); text-align: center; font-size: .88rem; }
+
+    .reveal { opacity: 0; transform: translateY(16px); transition: opacity .6s ease, transform .6s ease; }
+    .reveal.visible { opacity: 1; transform: none; }
+
+    @media (max-width: 980px) {
+      .hero-grid, .about-grid, .contact-card { grid-template-columns: 1fr; }
+      .hero-card { width: min(430px, 100%); }
+      .hero-grid { gap: 45px; }
+      .skills-panel { grid-template-columns: repeat(2, 1fr); }
+      .skill-group { border-bottom: 1px solid var(--line); }
+      .skill-group:nth-child(2n) { border-right: 0; }
+      .skill-group:last-child { grid-column: 1 / -1; border-bottom: 0; }
+      .project-card { grid-template-columns: 1fr; }
+      .project-media { border-right: 0; border-bottom: 1px solid var(--line); }
+      .main-image { height: 340px; }
+      .contact-links { grid-template-columns: repeat(3, 1fr); }
+    }
+    @media (max-width: 720px) {
+      .container { width: min(calc(100% - 24px), var(--max)); }
+      .section { padding: 70px 0; }
+      .menu-btn { display: block; }
+      .nav-links { display: none; position: absolute; top: 72px; left: 12px; right: 12px; padding: 15px; flex-direction: column; align-items: stretch; background: #0b1722; border: 1px solid var(--line); border-radius: 18px; box-shadow: var(--shadow); }
+      .nav-links.open { display: flex; }
+      .nav-links a { padding: 8px 5px; }
+      .hero { min-height: auto; }
+      .hero h1 { font-size: clamp(3rem, 16vw, 5rem); }
+      .status-pill { left: 7px; bottom: 24px; }
+      .skills-panel { grid-template-columns: 1fr; }
+      .skill-group, .skill-group:nth-child(2n) { border-right: 0; border-bottom: 1px solid var(--line); min-height: auto; }
+      .skill-group:last-child { grid-column: auto; }
+      .projects-head { align-items: start; flex-direction: column; }
+      .filters { justify-content: flex-start; }
+      .main-image { height: 250px; }
+      .project-body { padding: 26px 22px; }
+      .project-topline { flex-direction: column; gap: 5px; }
+      .contact-card { padding: 30px 22px; }
+      .contact-links { grid-template-columns: 1fr; }
+    }
+  </style>
 </head>
-
-<body class="index-page">
-
-  <header id="header" class="header dark-background d-flex flex-column">
-    <i class="header-toggle d-xl-none bi bi-list"></i>
-
-    <div class="profile-img">
-      <img src="assets/img/my-pfp.jpg" alt="" class="img-fluid rounded-circle">
+<body>
+  <header class="site-header">
+    <div class="container nav">
+      <a class="brand" href="#home">VG<span>.</span></a>
+      <button class="menu-btn" aria-label="Open navigation" aria-expanded="false">☰</button>
+      <nav class="nav-links" aria-label="Primary navigation">
+        <a href="#about">About</a>
+        <a href="#skills">Skills</a>
+        <a href="#projects">Projects</a>
+        <a class="nav-cta" href="mailto:garanovskiyvlad2005@gmail.com">Contact</a>
+      </nav>
     </div>
-
-    <a href="index.html" class="logo d-flex align-items-center justify-content-center">
-      <!-- Uncomment the line below if you also wish to use an image logo -->
-      <!-- <img src="assets/img/logo.png" alt=""> -->
-      <h1 class="sitename">Vladyslav Garanovskyi</h1>
-    </a>
-
-    <div class="social-links text-center">
-      <a href="https://www.instagram.com/ezzzz4?igsh=bHNibTIxbTBycXVz" class="instagram"><i class="bi bi-instagram"></i></a>
-      <a href="https://www.linkedin.com/in/vladyslav-garanovskyi-b05132294" class="linkedin"><i class="bi bi-linkedin"></i></a>
-    </div>
-
-    <nav id="navmenu" class="navmenu">
-      <ul>
-        <li><a href="#hero" class="active"><i class="bi bi-house navicon"></i>Home</a></li>
-        <li><a href="#about"><i class="bi bi-person navicon"></i> About</a></li>
-        <li><a href="#resume"><i class="bi bi-file-earmark-text navicon"></i> Resume</a></li>
-        <li><a href="#portfolio"><i class="bi bi-images navicon"></i> Portfolio</a></li>
-        <!-- <li><a href="#contact"><i class="bi bi-envelope navicon"></i> Contact</a></li> -->
-      </ul>
-    </nav>
-
   </header>
 
-  <main class="main">
-
-    <!-- Hero Section -->
-    <section id="hero" class="hero section dark-background">
-
-      <img src="assets/img/bckgr.jpg" alt="" data-aos="fade-in" class="">
-
-      <div class="container" data-aos="fade-up" data-aos-delay="100">
-        <h2>Vladyslav Garanovskyi</h2>
-        <p>I'm <span class="typed" data-typed-items="Cybersecurity Engineer, Computer Engineering Student @ CCNY"></span><span class="typed-cursor typed-cursor--blink" aria-hidden="true"></span><span class="typed-cursor typed-cursor--blink" aria-hidden="true"></span></p>
+  <main>
+    <section id="home" class="hero">
+      <div class="container hero-grid">
+        <div class="reveal">
+          <span class="eyebrow">Computer Engineering · Brooklyn, NY</span>
+          <h1>Building across <span class="gradient">software & hardware.</span></h1>
+          <p class="hero-lede">I’m Vladyslav Garanovskyi, a Computer Engineering student @ CCNY | AI/Software Engineering Intern @ GSoE | Prev SWE Intern @ Luxiglasses | Prev College IT Assistant @ KBCC</p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#projects">Explore projects ↓</a>
+            <a class="btn" href="https://www.linkedin.com/in/vladyslav-garanovskyi-b05132294" target="_blank" rel="noreferrer">LinkedIn ↗</a>
+            <a class="btn" href="mailto:garanovskiyvlad2005@gmail.com">Email me</a>
+          </div>
+        </div>
+        <div class="hero-card reveal">
+          <img src="assets/img/my-pfp.jpg" alt="Portrait of Vladyslav Garanovskyi" />
+          <div class="status-pill"><span class="status-dot"></span> Open to engineering opportunities</div>
+        </div>
       </div>
-
     </section>
 
-    <!-- About Section -->
-    <section id="about" class="about section">
-
-      <!-- Section Title -->
-      <div class="container section-title" data-aos="fade-up">
-        <h2>About</h2>
-        <p>My first exposure to IT was when I couldn't run CSGO on my computer in 6th grade. I tried to free up some memory, fix the HDD grinding noise by replacing its arm above the disk, change system files, accelerate the network, etc. The moment I solved the problem by upgrading the computer's specs, I realized that I fell in love with the underlying process of thinking. As a result, I realized my key strengths: resourcefulness, adaptability, and versatility.
-
-. I am resourceful because I can make decisions based on price-value ratio. For example, when I had started working on the website for Luxiglasses, I thought of every little detail in advance, considered all the pros and cons of every solution, and avoided using expensive third-party plug-ins which would cost a lot more than just developing some features on my own. Given that, I provided a great service, and the web app is secured and functioning perfectly.
-
-. I am versatile in every task that I start. For example, when I had to set up the website on AWS, and it could not send emails, I started troubleshooting. The moment I realized that my code is perfect and had no problems, I started checking the Network side. Using the networking skills I learned in my CompTIA A+ cert and IT Network Technician job, I managed to figure out the issue in the firewall that blocked the necessary port. And I did not stop there, I also blocked unnecessary ports and added IP Filtering for bots that scan websites for config files.
-
-. At every job I had to learn something new and adapt. I was not afraid to ask questions. This was basically my whole life experience. When I came from Ukraine to USA, I had to start over. As of now, I went from being an immigrant with zero communication skills to being able to speak fluently and having worked 3 jobs related to IT, started studying in the college with GPA 4.0, and even started my own Computer Science Club there.          
-          </p>
-      </div><!-- End Section Title -->
-
-      <div class="container" data-aos="fade-up" data-aos-delay="100">
-
-        <div class="row gy-4 justify-content-center">
-          <div class="col-lg-4">
-            <img src="assets/img/my-pfp.jpg" class="img-fluid" object-fit="cover" alt="">
-          </div>
-          <div class="col-lg-8 content">
-            <h2>Computer Engineering Student @ CCNY</h2>
-            <p class="fst-italic py-3">
-              I am majoring in Computer Engineering to explore everything about the systems, hardware, and low level code to develop great solutions for protecting enterprise data and networks.
-            </p>
-            <div class="row">
-              <div class="col-lg-6">
-                <ul>
-                  <li><i class="bi bi-chevron-right"></i> <strong>Phone:</strong> <span>+1 347 426 8646</span></li>
-                  <li><i class="bi bi-chevron-right"></i> <strong>City:</strong> <span>Brooklyn, NY, USA</span></li>
-                  <li><i class="bi bi-chevron-right"></i> <strong>Certs:</strong> <span>CompTIA A+, AWS CCP</span></li>
-                </ul>
-              </div>
-              <div class="col-lg-6">
-                <ul>
-                  <li><i class="bi bi-chevron-right"></i> <strong>Age:</strong> <span>20</span></li>
-                  <li><i class="bi bi-chevron-right"></i> <strong>Email:</strong> <span>garanovskiyvlad2005@gmail.com</span></li>
-                  <li><i class="bi bi-chevron-right"></i> <strong>Upcoming Certs:</strong> <span>AWS CSA, Azure, Cisco CCNA, CompTIA Security+</span></li>
-                </ul>
-              </div>
-            </div>
+    <section id="about" class="section">
+      <div class="container about-grid">
+        <div class="reveal">
+          <span class="eyebrow">About</span>
+          <!-- <h2 class="section-title">Curiosity became engineering.</h2> -->
+          <div class="about-meta">
+            <div class="meta-row"><span>School</span><strong>CCNY</strong></div>
+            <div class="meta-row"><span>Location</span><strong>Brooklyn, NY</strong></div>
+            <div class="meta-row"><span>Phone</span><strong>+1 347 426 8646</strong></div>
           </div>
         </div>
-
+        <div class="reveal">
+          <p class="about-story">My first exposure to IT came in sixth grade, when my computer could not run CS:GO. I tried freeing memory, troubleshooting a grinding hard drive, changing system files, improving the network, and eventually upgrading the hardware. Solving that problem made me fall in love with the underlying process of thinking.</p>
+          <p class="about-story">That curiosity moved from fixing computers to understanding how to design them. It led me into programming, then hardware and embedded systems, and helped shape my strongest qualities: resourcefulness, adaptability, versatility, and a willingness to learn by building.</p>
+          <div class="interests" aria-label="Interests">
+            <span class="chip">CTFs</span><span class="chip">DIY electronics</span><span class="chip">Hackathons</span><span class="chip">Unity</span><span class="chip">3D modeling</span><span class="chip">Cycling</span><span class="chip">Gym</span><span class="chip">Chess</span><span class="chip">Fishing</span><span class="chip">Rainbow Six: Siege</span>
+          </div>
+        </div>
       </div>
-
     </section>
-    <!-- Skills Section -->
-    <section id="skills" class="skills section light-background">
 
-      <!-- Section Title -->
-      <div class="container section-title" data-aos="fade-up">
-        <h2>Skills</h2>
-        <p>Learnt by pure practicing and mentorship</p>
-      </div><!-- End Section Title -->
-
-      <div class="container" data-aos="fade-up" data-aos-delay="100">
-
-        <div class="row skills-content skills-animation">
-
-          <div class="col-lg-6">
-
-            <div class="progress">
-              <span class="skill"><span>Programming: Web dev, game dev, Python, C, C#, C++, Java</span>
-              <div class="progress-bar-wrap">
-                <div class="progress-bar" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
-              </div>
-            </div><!-- End Skills Item -->
-
-            <div class="progress">
-              <span class="skill"><span>DevOps: Docker, Kubernetes, Terraform</span>
-              <div class="progress-bar-wrap">
-                <div class="progress-bar" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
-              </div>
-            </div><!-- End Skills Item -->
-
-            <div class="progress">
-              <span class="skill"><span>Networks: Hardening, Firewalls, WAF, Packet sniffing</span>
-              <div class="progress-bar-wrap">
-                <div class="progress-bar" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
-              </div>
-            </div><!-- End Skills Item -->
-
-          </div>
-
-          <div class="col-lg-6">
-
-            <div class="progress">
-              <span class="skill"><span>Cloud: AWS, Azure, IAM management, ACLs, Subnetting</span>
-              <div class="progress-bar-wrap">
-                <div class="progress-bar" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
-              </div>
-            </div><!-- End Skills Item -->
-
-            <div class="progress">
-              <span class="skill"><span>Systems: AD, group policies, Advanced OS usage</span>
-              <div class="progress-bar-wrap">
-                <div class="progress-bar" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
-              </div>
-            </div><!-- End Skills Item -->
-
-            <div class="progress">
-              <span class="skill"><span>Engineering: Raspberry Pi, Firmware, Drivers creation</span>
-              <div class="progress-bar-wrap">
-                <div class="progress-bar" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
-              </div>
-            </div><!-- End Skills Item -->
-
-          </div>
-
-        </div>
-
-      </div>
-
-    </section><!-- /Skills Section -->
-
-    <!-- Resume Section -->
-    <section id="resume" class="resume section">
-
-      <!-- Section Title -->
-      <div class="container section-title" data-aos="fade-up">
-        <h2>Resume</h2>
-        <p>Summary of work and education</p>
-      </div><!-- End Section Title -->
-
+    <section id="skills" class="section">
       <div class="container">
-
-        <div class="row">
-
-          <!-- Professional Experience -->
-          <div class="col-lg-6" data-aos="fade-up" data-aos-delay="200">
-            <h3 class="resume-title">Professional Experience</h3>
-
-            <div class="resume-item">
-              <h4>Backend AppSec Engineer</h4>
-              <h5>Mar 2025 - Present</h5>
-              <p><em>LuxiGlasses · Part-time · Remote</em></p>
-              <ul>
-                <li>Developed a full web app for e-commerce using Python Django</li>
-                <li>Integrated secure payments via Stripe API</li>
-                <li>Pentested the app on Brute-force, DoS, SQL injections, XSS, JWT attacks</li>
-                <li>Deployed using Docker on AWS with Certbot, Nginx, PostgreSQL, Redis</li>
-                <li>Configured DNS, firewall, subnet, and DoS filtering for security</li>
-              </ul>
-            </div>
-
-            <div class="resume-item">
-              <h4>IT Network Technician</h4>
-              <h5>May 2024 - Present</h5>
-              <p><em>Kingsborough Community College · Part-time · On-site</em></p>
-              <ul>
-                <li>Built and customized workstations for classrooms</li>
-                <li>Troubleshot network issues from physical to application layer</li>
-                <li>Provided faculty and staff tech support</li>
-                <li>Installed and configured Windows & macOS machines</li>
-                <li>Set up network shares for large rooms</li>
-                <li>Wrote scripts for student lab environments</li>
-              </ul>
-            </div>
-
-            <div class="resume-item">
-              <h4>Python Developer</h4>
-              <h5>Sep 2023 - Oct 2023</h5>
-              <p><em>KOPYOFF DENTAL ART PC · Contract · Remote</em></p>
-              <ul>
-                <li>Developed Django + React web app with appointment form and admin panel</li>
-                <li>Deployed on AWS using Docker Compose</li>
-                <li>Enabled automatic user email updates and appointment system</li>
-              </ul>
-            </div>
-
-          </div>
-
-          <!-- Education -->
-          <div class="col-lg-6" data-aos="fade-up" data-aos-delay="100">
-            <h3 class="resume-title">Education</h3>
-
-            <div class="resume-item">
-              <h4>Bachelor of Engineering - Computer Engineering</h4>
-              <h5>Jun 2025 - Jun 2028</h5>
-              <p><em>The City College of New York, NY</em></p>
-            </div>
-
-            <div class="resume-item">
-              <h4>Associate of Science - Computer Science</h4>
-              <h5>Mar 2024 - Jun 2025</h5>
-              <p><em>Kingsborough Community College, Brooklyn, NY</em></p>
-              <p>Activities: Computer Science Club President & Founder</p>
-            </div>
-          </div>
-
+        <div class="reveal">
+          <span class="eyebrow">Capabilities</span>
+          <h2 class="section-title">Five disciplines. One engineering toolkit.</h2>
+          <p class="section-copy">Instead of arbitrary progress bars, these skills are grouped by the kind of problems they help solve.</p>
         </div>
-
+        <div class="skills-panel reveal">
+          <article class="skill-group"><div class="skill-icon">01</div><h3>Programming</h3><p>Python, C, C++, C#, Java, web development, and game development.</p></article>
+          <article class="skill-group"><div class="skill-icon">02</div><h3>DevOps</h3><p>Docker, Kubernetes, Terraform, deployment workflows, and production infrastructure.</p></article>
+          <article class="skill-group"><div class="skill-icon">03</div><h3>Artificial Intelligence</h3><p>Genetic algorithms, neural networks, AI agents, analytics, and optimization.</p></article>
+          <article class="skill-group"><div class="skill-icon">04</div><h3>Hardware</h3><p>FPGA development, Verilog, digital logic, and hardware prototyping.</p></article>
+          <article class="skill-group"><div class="skill-icon">05</div><h3>Embedded Systems</h3><p>Raspberry Pi, Embedded C, RTOS, I²C, SPI, UART, sensors, and displays.</p></article>
+        </div>
       </div>
+    </section>
 
-    </section><!-- /Resume Section -->
-
-    <!-- Portfolio Section -->
-    <section id="portfolio" class="portfolio section light-background">
-
-      <!-- Section Title -->
-      <div class="container section-title" data-aos="fade-up">
-        <h2>Portfolio</h2>
-        <!-- <p>Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea. Quia fugiat sit in iste officiis commodi quidem hic quas.</p> -->
-      </div><!-- End Section Title -->
-
+    <section id="projects" class="section">
       <div class="container">
-
-        <section id="portfolio-details" class="portfolio-details section">
-
-          <div class="container" data-aos="fade-up" data-aos-delay="100">
-    
-            <div class="row gy-4">
-    
-              <div class="col-lg-8">
-                <div class="portfolio-details-slider swiper init-swiper">
-    
-                  <script type="application/json" class="swiper-config">
-                    {
-                      "loop": true,
-                      "speed": 600,
-                      "autoplay": {
-                        "delay": 5000
-                      },
-                      "slidesPerView": "auto",
-                      "pagination": {
-                        "el": ".swiper-pagination",
-                        "type": "bullets",
-                        "clickable": true
-                      }
-                    }
-                  </script>
-    
-                  <div class="swiper-wrapper align-items-center">
-    
-                    <div class="swiper-slide">
-                      <img src="assets/img/MITM_Sniffer/1.jpg" alt="">
-                    </div>
-    
-                    <div class="swiper-slide">
-                      <img src="assets/img/MITM_Sniffer/2.jpg" alt="">
-                    </div>
-
-                    <div class="swiper-slide">
-                      <img src="assets/img/MITM_Sniffer/3.jpg" alt="">
-                    </div>
-
-                    <div class="swiper-slide">
-                      <img src="assets/img/MITM_Sniffer/4.jpg" alt="">
-                    </div>
-    
-                  </div>
-                  <div class="swiper-pagination"></div>
-                </div>
-              </div>
-    
-              <div class="col-lg-4">
-                <div class="portfolio-info" data-aos="fade-up" data-aos-delay="200">
-                  <h3>Project information</h3>
-                  <ul>
-                    <li><strong>Category</strong>: Hacking Scripts</li>
-                    <li><strong>Organization</strong>: N/A</li>
-                    <li><strong>Project date</strong>: June, 2025</li>
-                    <li><strong>Project URL</strong>: <a href="https://github.com/VladGaranovskyi/VG_MITM_Sniff_Spoof.git">https://github.com/VladGaranovskyi/VG_MITM_Sniff_Spoof.git</a></li>
-                  </ul>
-                </div>
-                <div class="portfolio-description" data-aos="fade-up" data-aos-delay="300">
-                  <h2>MITM Tool to intercept https traffic and perform DNS and ARP spoofing</h2>
-                  <p>
-                    This tool allows you to become a man in the middle between router and target IP, listen to packets that are sent, and also spoof DNS to redirect victims to malicious websites
-                  </p>
-                </div>
-              </div>
-    
-            </div>
-    
+        <div class="projects-head reveal">
+          <div><span class="eyebrow">Selected work</span><h2 class="section-title">Projects, newest first.</h2></div>
+          <div class="filters" aria-label="Project filters">
+            <button class="filter-btn active" data-filter="all">All</button>
+            <button class="filter-btn" data-filter="hardware">Hardware</button>
+            <button class="filter-btn" data-filter="ai">AI</button>
+            <button class="filter-btn" data-filter="web">Web</button>
+            <button class="filter-btn" data-filter="game">Games</button>
           </div>
-    
-        </section>
-
-        <section id="portfolio-details" class="portfolio-details section">
-
-          <div class="container" data-aos="fade-up" data-aos-delay="100">
-    
-            <div class="row gy-4">
-    
-              <div class="col-lg-8">
-                <div class="portfolio-details-slider swiper init-swiper">
-    
-                  <script type="application/json" class="swiper-config">
-                    {
-                      "loop": true,
-                      "speed": 600,
-                      "autoplay": {
-                        "delay": 5000
-                      },
-                      "slidesPerView": "auto",
-                      "pagination": {
-                        "el": ".swiper-pagination",
-                        "type": "bullets",
-                        "clickable": true
-                      }
-                    }
-                  </script>
-    
-                  <div class="swiper-wrapper align-items-center">
-    
-                    <div class="swiper-slide">
-                      <img src="assets/img/3DCollegeMap/1.png" alt="">
-                    </div>
-    
-                    <div class="swiper-slide">
-                      <img src="assets/img/3DCollegeMap/2.png" alt="">
-                    </div>
-
-                    <div class="swiper-slide">
-                      <img src="assets/img/3DCollegeMap/3.png" alt="">
-                    </div>
-
-                    <div class="swiper-slide">
-                      <img src="assets/img/3DCollegeMap/4.png" alt="">
-                    </div>
-    
-                  </div>
-                  <div class="swiper-pagination"></div>
-                </div>
-              </div>
-    
-              <div class="col-lg-4">
-                <div class="portfolio-info" data-aos="fade-up" data-aos-delay="200">
-                  <h3>Project information</h3>
-                  <ul>
-                    <li><strong>Category</strong>: App Development</li>
-                    <li><strong>Organization</strong>: Computer Science Club</li>
-                    <li><strong>Project start date</strong>: October, 2024</li>
-                    <li><strong>Project URL</strong>: <a href="https://ezzzz4.itch.io/kbcc-wayfinder">https://ezzzz4.itch.io/kbcc-wayfinder</a></li>
-                  </ul>
-                </div>
-                <div class="portfolio-description" data-aos="fade-up" data-aos-delay="300">
-                  <h2>Interactive 3D map of college's campus</h2>
-                  <p>
-                    Me and other members of the Computer Science Club in Kingsborough Community College started this project. So far we've developed the pathfinding from point A to point B in a 3D building. This is the main project of our club and it's assisted by the CIO of our college.
-                  </p>
-                </div>
-              </div>
-    
-            </div>
-    
-          </div>
-    
-        </section>
-
-        <section id="portfolio-details" class="portfolio-details section">
-
-          <div class="container" data-aos="fade-up" data-aos-delay="100">
-    
-            <div class="row gy-4">
-    
-              <div class="col-lg-8">
-                <div class="portfolio-details-slider swiper init-swiper">
-    
-                  <script type="application/json" class="swiper-config">
-                    {
-                      "loop": true,
-                      "speed": 600,
-                      "autoplay": {
-                        "delay": 5000
-                      },
-                      "slidesPerView": "auto",
-                      "pagination": {
-                        "el": ".swiper-pagination",
-                        "type": "bullets",
-                        "clickable": true
-                      }
-                    }
-                  </script>
-    
-                  <div class="swiper-wrapper align-items-center">
-    
-                    <div class="swiper-slide">
-                      <img src="assets/img/Luxiglasses/1.png" alt="">
-                    </div>
-    
-                    <div class="swiper-slide">
-                      <img src="assets/img/Luxiglasses/2.png" alt="">
-                    </div>
-
-                    <div class="swiper-slide">
-                      <img src="assets/img/Luxiglasses/3.png" alt="">
-                    </div>
-    
-                  </div>
-                  <div class="swiper-pagination"></div>
-                </div>
-              </div>
-    
-              <div class="col-lg-4">
-                <div class="portfolio-info" data-aos="fade-up" data-aos-delay="200">
-                  <h3>Project information</h3>
-                  <ul>
-                    <li><strong>Category</strong>: Web Development - AppSec</li>
-                    <li><strong>Client</strong>: Luxiglasses</li>
-                    <li><strong>Project date</strong>: March, 2025 - Present</li>
-                    <li><strong>Project URL</strong>: <a href="https://luxiglasses.com/">Temporarily unavailable</a></li>
-                  </ul>
-                </div>
-                <div class="portfolio-description" data-aos="fade-up" data-aos-delay="300">
-                  <h2>Luxiglasses: B2B glasses selling business</h2>
-                  <p>
-                    A custom e-commerce website with secure Stripe payments hosted on DigitalOcean using Docker. The stack is Python, Django, Redis, PostgreSql for Backend. Pentested the app on Brute-force, DoS, SQL injections, XSS, JWT attacks.
-                  </p>
-                </div>
-              </div>
-    
-            </div>
-    
-          </div>
-    
-        </section>
-
-        <section id="portfolio-details" class="portfolio-details section">
-
-          <div class="container" data-aos="fade-up" data-aos-delay="100">
-    
-            <div class="row gy-4">
-    
-              <div class="col-lg-8">
-                <div class="portfolio-details-slider swiper init-swiper">
-    
-                  <script type="application/json" class="swiper-config">
-                    {
-                      "loop": true,
-                      "speed": 600,
-                      "autoplay": {
-                        "delay": 5000
-                      },
-                      "slidesPerView": "auto",
-                      "pagination": {
-                        "el": ".swiper-pagination",
-                        "type": "bullets",
-                        "clickable": true
-                      }
-                    }
-                  </script>
-    
-                  <div class="swiper-wrapper align-items-center">
-    
-                    <div class="swiper-slide">
-                      <img src="assets/img/KopyoffDentalArt/1.png" alt="">
-                    </div>
-    
-                    <div class="swiper-slide">
-                      <img src="assets/img/KopyoffDentalArt/2.png" alt="">
-                    </div>
-
-                    <div class="swiper-slide">
-                      <img src="assets/img/KopyoffDentalArt/3.png" alt="">
-                    </div>
-    
-                  </div>
-                  <div class="swiper-pagination"></div>
-                </div>
-              </div>
-    
-              <div class="col-lg-4">
-                <div class="portfolio-info" data-aos="fade-up" data-aos-delay="200">
-                  <h3>Project information</h3>
-                  <ul>
-                    <li><strong>Category</strong>: Web Development</li>
-                    <li><strong>Client</strong>: Kopyoff Dental Art</li>
-                    <li><strong>Project date</strong>: September, 2023</li>
-                    <li><strong>Project URL</strong>: <a href="https://www.kopyoffdental.com/">https://www.kopyoffdental.com/</a></li>
-                  </ul>
-                </div>
-                <div class="portfolio-description" data-aos="fade-up" data-aos-delay="300">
-                  <h2>Kopyoff Dental Art: A website for my dentist</h2>
-                  <p>
-                    I've built a custom website for my dentist, including an admin panel, appointment management, and a landing page. Eager to learn, I created it for free to gain experience. Check it out here: kopyoffdental.com.
-                  </p>
-                </div>
-              </div>
-    
-            </div>
-    
-          </div>
-    
-        </section>
-
-        <section id="portfolio-details" class="portfolio-details section">
-
-          <div class="container" data-aos="fade-up" data-aos-delay="100">
-    
-            <div class="row gy-4">
-    
-              <div class="col-lg-8">
-                <div class="portfolio-details-slider swiper init-swiper">
-    
-                  <script type="application/json" class="swiper-config">
-                    {
-                      "loop": true,
-                      "speed": 600,
-                      "autoplay": {
-                        "delay": 5000
-                      },
-                      "slidesPerView": "auto",
-                      "pagination": {
-                        "el": ".swiper-pagination",
-                        "type": "bullets",
-                        "clickable": true
-                      }
-                    }
-                  </script>
-    
-                  <div class="swiper-wrapper align-items-center">
-    
-                    <div class="swiper-slide">
-                      <img src="assets/img/HookRun3D/1.png" alt="">
-                    </div>
-    
-                    <div class="swiper-slide">
-                      <img src="assets/img/HookRun3D/2.png" alt="">
-                    </div>
-
-                    <div class="swiper-slide">
-                      <img src="assets/img/HookRun3D/3.png" alt="">
-                    </div>
-
-                    <div class="swiper-slide">
-                      <img src="assets/img/HookRun3D/4.png" alt="">
-                    </div>
-    
-                  </div>
-                  <div class="swiper-pagination"></div>
-                </div>
-              </div>
-    
-              <div class="col-lg-4">
-                <div class="portfolio-info" data-aos="fade-up" data-aos-delay="200">
-                  <h3>Project information</h3>
-                  <ul>
-                    <li><strong>Category</strong>: Game Development</li>
-                    <li><strong>Partner</strong>: YSO Corp</li>
-                    <li><strong>Project date</strong>: August, 2022</li>
-                    <li><strong>Project URL</strong>: <a href="https://play.google.com/store/apps/details?id=com.Ezzzz4.HookRun3D">https://play.google.com/store/apps/details?id=com.Ezzzz4.HookRun3D</a></li>
-                  </ul>
-                </div>
-                <div class="portfolio-description" data-aos="fade-up" data-aos-delay="300">
-                  <h2>Hook Run 3D: Android 3D game</h2>
-                  <p>
-                    I learned Unity to develop video games and created Hook Run 3D on Google Play. YSO Corp offered guidance to improve it, but after testing, I published it independently. It now has 1,000+ downloads on Google Play.
-                  </p>
-                </div>
-              </div>
-    
-            </div>
-    
-          </div>
-    
-        </section>
-
-        <!-- <section id="portfolio-details" class="portfolio-details section">
-
-          <div class="container" data-aos="fade-up" data-aos-delay="100">
-    
-            <div class="row gy-4">
-    
-              <div class="col-lg-8">
-                <div class="portfolio-details-slider swiper init-swiper">
-    
-                  <script type="application/json" class="swiper-config">
-                    {
-                      "loop": true,
-                      "speed": 600,
-                      "autoplay": {
-                        "delay": 5000
-                      },
-                      "slidesPerView": "auto",
-                      "pagination": {
-                        "el": ".swiper-pagination",
-                        "type": "bullets",
-                        "clickable": true
-                      }
-                    }
-                  </script>
-    
-                  <div class="swiper-wrapper align-items-center">
-    
-                    <div class="swiper-slide">
-                      <img src="assets/img/ComputerSurferBot/2.png" alt="">
-                    </div>
-    
-                    <div class="swiper-slide">
-                      <img src="assets/img/ComputerSurferBot/1.png" alt="">
-                    </div>
-    
-                  </div>
-                  <div class="swiper-pagination"></div>
-                </div>
-              </div>
-    
-              <div class="col-lg-4">
-                <div class="portfolio-info" data-aos="fade-up" data-aos-delay="200">
-                  <h3>Project information</h3>
-                  <ul>
-                    <li><strong>Category</strong>: Script</li>
-                    <li><strong>Client</strong>: N/A</li>
-                    <li><strong>Project date</strong>: July, 2023</li>
-                    <li><strong>Project URL</strong>: <a href="https://github.com/VladGaranovskyi/ComputerSurferbot">https://github.com/VladGaranovskyi/ComputerSurferbot</a></li>
-                  </ul>
-                </div>
-                <div class="portfolio-description" data-aos="fade-up" data-aos-delay="300">
-                  <h2>ComputerSurferBot: Python script to find low price PCs on the internet</h2>
-                  <p>
-                    A python script which can find and filter the computers based on the price, GPU, CPU, RAM, etc. Integrated as a social media bot.
-                  </p>
-                </div>
-              </div>
-    
-            </div>
-    
-          </div>
-    
-        </section> -->
-
-        <section id="portfolio-details" class="portfolio-details section">
-
-          <div class="container" data-aos="fade-up" data-aos-delay="100">
-    
-            <div class="row gy-4">
-    
-              <div class="col-lg-8">
-                <div class="portfolio-details-slider swiper init-swiper">
-    
-                  <script type="application/json" class="swiper-config">
-                    {
-                      "loop": true,
-                      "speed": 600,
-                      "autoplay": {
-                        "delay": 5000
-                      },
-                      "slidesPerView": "auto",
-                      "pagination": {
-                        "el": ".swiper-pagination",
-                        "type": "bullets",
-                        "clickable": true
-                      }
-                    }
-                  </script>
-    
-                  <div class="swiper-wrapper align-items-center">
-    
-                    <div class="swiper-slide">
-                      <img src="assets/img/Kind-Money/1.png" alt="">
-                    </div>
-    
-                    <div class="swiper-slide">
-                      <img src="assets/img/Kind-Money/2.png" alt="">
-                    </div>
-
-                    <div class="swiper-slide">
-                      <img src="assets/img/Kind-Money/3.png" alt="">
-                    </div>
-    
-                  </div>
-                  <div class="swiper-pagination"></div>
-                </div>
-              </div>
-    
-              <div class="col-lg-4">
-                <div class="portfolio-info" data-aos="fade-up" data-aos-delay="200">
-                  <h3>Project information</h3>
-                  <ul>
-                    <li><strong>Category</strong>: Game Development</li>
-                    <li><strong>Purpose</strong>: JTA GameJam</li>
-                    <li><strong>Project date</strong>: November, 2022</li>
-                    <li><strong>Project URL</strong>: <a href="https://ezzzz4.itch.io/kindmoney">https://ezzzz4.itch.io/kindmoney</a></li>
-                  </ul>
-                </div>
-                <div class="portfolio-description" data-aos="fade-up" data-aos-delay="300">
-                  <h2>Kind-Money: a 3D web game for 4 players</h2>
-                  <p>
-                    In simpler words, this is a 2-dimensional monopoly where you can choose where to go. I developed it for the 1000$ gamejam named JTA Gamejam. I've also found new friends at that competition.  
-                  </p>
-                </div>
-              </div>
-    
-            </div>
-    
-          </div>
-    
-        </section>
-
-        <!-- <section id="portfolio-details" class="portfolio-details section">
-
-          <div class="container" data-aos="fade-up" data-aos-delay="100">
-    
-            <div class="row gy-4">
-    
-              <div class="col-lg-8">
-                <div class="portfolio-details-slider swiper init-swiper">
-    
-                  <script type="application/json" class="swiper-config">
-                    {
-                      "loop": true,
-                      "speed": 600,
-                      "autoplay": {
-                        "delay": 5000
-                      },
-                      "slidesPerView": "auto",
-                      "pagination": {
-                        "el": ".swiper-pagination",
-                        "type": "bullets",
-                        "clickable": true
-                      }
-                    }
-                  </script>
-    
-                  <div class="swiper-wrapper align-items-center">
-    
-                    <div class="swiper-slide">
-                      <img src="assets/img/Numera/1.png" alt="">
-                    </div>
-    
-                    <div class="swiper-slide">
-                      <img src="assets/img/Numera/2.png" alt="">
-                    </div>
-
-                    <div class="swiper-slide">
-                      <img src="assets/img/Numera/3.png" alt="">
-                    </div>
-    
-                  </div>
-                  <div class="swiper-pagination"></div>
-                </div>
-              </div>
-    
-              <div class="col-lg-4">
-                <div class="portfolio-info" data-aos="fade-up" data-aos-delay="200">
-                  <h3>Project information</h3>
-                  <ul>
-                    <li><strong>Category</strong>: Web Development</li>
-                    <li><strong>Client</strong>: N/A</li>
-                    <li><strong>Project start date</strong>: July, 2024</li>
-                    <li><strong>Project URL</strong>: <a href="#">N/A</a></li>
-                  </ul>
-                </div>
-                <div class="portfolio-description" data-aos="fade-up" data-aos-delay="300">
-                  <h2>Numera</h2>
-                  <p>
-                    Me and my friend who is majoring in accounting started working on our startapp. In simpler words, it is expected to be like duolingo but for accounting and finance. It's currently in development. We have a website with 70% of the features, and a business plan.
-                  </p>
-                </div>
-              </div>
-    
-            </div>
-    
-          </div>
-    
-        </section> -->
-
-        <section id="portfolio-details" class="portfolio-details section">
-
-          <div class="container" data-aos="fade-up" data-aos-delay="100">
-    
-            <div class="row gy-4">
-    
-              <div class="col-lg-8">
-                <div class="portfolio-details-slider swiper init-swiper">
-    
-                  <script type="application/json" class="swiper-config">
-                    {
-                      "loop": true,
-                      "speed": 600,
-                      "autoplay": {
-                        "delay": 5000
-                      },
-                      "slidesPerView": "auto",
-                      "pagination": {
-                        "el": ".swiper-pagination",
-                        "type": "bullets",
-                        "clickable": true
-                      }
-                    }
-                  </script>
-    
-                  <div class="swiper-wrapper align-items-center">
-    
-                    <div class="swiper-slide">
-                      <img src="assets/img/UFounder/1.jpg" alt="">
-                    </div>
-    
-                    <div class="swiper-slide">
-                      <img src="assets/img/UFounder/2.jpg" alt="">
-                    </div>
-    
-                  </div>
-                  <div class="swiper-pagination"></div>
-                </div>
-              </div>
-    
-              <div class="col-lg-4">
-                <div class="portfolio-info" data-aos="fade-up" data-aos-delay="200">
-                  <h3>Project information</h3>
-                  <ul>
-                    <li><strong>Category</strong>: Web Development</li>
-                    <li><strong>Purpose</strong>: Fresh Air Hackathon 2023</li>
-                    <li><strong>Project date</strong>: April, 2023</li>
-                    <li><strong>Project URL</strong>: <a href="https://github.com/maxtkach/ustarter">https://github.com/maxtkach/ustarter</a></li>
-                  </ul>
-                </div>
-                <div class="portfolio-description" data-aos="fade-up" data-aos-delay="300">
-                  <h2>UFounder</h2>
-                  <p>
-                    I led development for UFounder, a Kickstarter-style project created in 3 days at a hackathon. Our team’s passion and strong pitch earned us a prize, showcasing teamwork and innovation under pressure.                  </p>
-                </div>
-              </div>
-    
-            </div>
-    
-          </div>
-    
-        </section>
-
-        <section id="portfolio-details" class="portfolio-details section">
-
-          <div class="container" data-aos="fade-up" data-aos-delay="100">
-    
-            <div class="row gy-4">
-    
-              <div class="col-lg-8">
-                <div class="portfolio-details-slider swiper init-swiper">
-    
-                  <script type="application/json" class="swiper-config">
-                    {
-                      "loop": true,
-                      "speed": 600,
-                      "autoplay": {
-                        "delay": 5000
-                      },
-                      "slidesPerView": "auto",
-                      "pagination": {
-                        "el": ".swiper-pagination",
-                        "type": "bullets",
-                        "clickable": true
-                      }
-                    }
-                  </script>
-    
-                  <div class="swiper-wrapper align-items-center">
-    
-                    <div class="swiper-slide">
-                      <img src="assets/img/RaspberryPi/1.png" alt="">
-                    </div>
-    
-                    <div class="swiper-slide">
-                      <img src="assets/img/RaspberryPi/2.png" alt="">
-                    </div>
-                    
-                    <div class="swiper-slide">
-                      <img src="assets/img/RaspberryPi/3.jpg" alt="">
-                    </div>
-
-                  </div>
-                  <div class="swiper-pagination"></div>
-                </div>
-              </div>
-    
-              <div class="col-lg-4">
-                <div class="portfolio-info" data-aos="fade-up" data-aos-delay="200">
-                  <h3>Project information</h3>
-                  <ul>
-                    <li><strong>Category</strong>: Embedded Systems</li>
-                    <li><strong>Client</strong>: N/A</li>
-                    <li><strong>Project date</strong>: October, 2024</li>
-                    <li><strong>Project URL</strong>: <a href="#">N/A</a></li>
-                  </ul>
-                </div>
-                <div class="portfolio-description" data-aos="fade-up" data-aos-delay="300">
-                  <h2>Raspberry Pi: API-manageable remote server with a 3.5 inch screen.</h2>
-                  <p>
-                    When I was gifted a Raspberry Pi Zero 2 W, I didn't know what to do with it. I came up with the idea of a small portable computer where I can upload files. I managed to learn soldering, connect the 3.5 inch lcd screen, and run it.
-                  </p>
-                </div>
-              </div>
-    
-            </div>
-    
-          </div>
-    
-        </section>
-
-        <section id="portfolio-details" class="portfolio-details section">
-
-          <div class="container" data-aos="fade-up" data-aos-delay="100">
-    
-            <div class="row gy-4">
-    
-              <div class="col-lg-8">
-                <div class="portfolio-details-slider swiper init-swiper">
-    
-                  <script type="application/json" class="swiper-config">
-                    {
-                      "loop": true,
-                      "speed": 600,
-                      "autoplay": {
-                        "delay": 5000
-                      },
-                      "slidesPerView": "auto",
-                      "pagination": {
-                        "el": ".swiper-pagination",
-                        "type": "bullets",
-                        "clickable": true
-                      }
-                    }
-                  </script>
-    
-                  <div class="swiper-wrapper align-items-center">
-    
-                    <div class="swiper-slide">
-                      <img src="assets/img/R6Random/1.png" alt="">
-                    </div>
-    
-                    <div class="swiper-slide">
-                      <img src="assets/img/R6Random/2.png" alt="">
-                    </div>
-    
-                  </div>
-                  <div class="swiper-pagination"></div>
-                </div>
-              </div>
-    
-              <div class="col-lg-4">
-                <div class="portfolio-info" data-aos="fade-up" data-aos-delay="200">
-                  <h3>Project information</h3>
-                  <ul>
-                    <li><strong>Category</strong>: App Development</li>
-                    <li><strong>Client</strong>: N/A</li>
-                    <li><strong>Project date</strong>: March, 2021</li>
-                    <li><strong>Project URL</strong>: <a href="#">N/A</a></li>
-                  </ul>
-                </div>
-                <div class="portfolio-description" data-aos="fade-up" data-aos-delay="300">
-                  <h2>R6Random</h2>
-                  <p>
-                    The inability to decide which operator, map, team setup, settings to choose motivated me to create this app. It is basically a random generator of multiple settings and options for the Rainbow Six Siege game. I have developed an android app using Python + kivymd, but I wasn't able to update it to the latest version, hence google play hid it from the market.
-                  </p>
-                </div>
-              </div>
-    
-            </div>
-    
-          </div>
-    
-        </section><!-- /Portfolio Details Section -->
-        <!-- <div class="isotope-layout" data-default-filter="*" data-layout="masonry" data-sort="original-order">
-
-          <ul class="portfolio-filters isotope-filters" data-aos="fade-up" data-aos-delay="100">
-            <li data-filter="*" class="filter-active">All</li>
-            <li data-filter=".filter-app">App</li>
-            <li data-filter=".filter-product">Product</li>
-            <li data-filter=".filter-branding">Branding</li>
-            <li data-filter=".filter-books">Books</li>
-          </ul>
-
-          <div class="row gy-4 isotope-container" data-aos="fade-up" data-aos-delay="200">
-
-            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-app">
-              <div class="portfolio-content h-100">
-                <img src="assets/img/portfolio/app-1.jpg" class="img-fluid" alt="">
-                <div class="portfolio-info">
-                  <h4>App 1</h4>
-                  <p>Lorem ipsum, dolor sit amet consectetur</p>
-                  <a href="assets/img/portfolio/app-1.jpg" title="App 1" data-gallery="portfolio-gallery-app" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
-                  <a href="portfolio-details.html" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-product">
-              <div class="portfolio-content h-100">
-                <img src="assets/img/portfolio/product-1.jpg" class="img-fluid" alt="">
-                <div class="portfolio-info">
-                  <h4>Product 1</h4>
-                  <p>Lorem ipsum, dolor sit amet consectetur</p>
-                  <a href="assets/img/portfolio/product-1.jpg" title="Product 1" data-gallery="portfolio-gallery-product" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
-                  <a href="portfolio-details.html" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-branding">
-              <div class="portfolio-content h-100">
-                <img src="assets/img/portfolio/branding-1.jpg" class="img-fluid" alt="">
-                <div class="portfolio-info">
-                  <h4>Branding 1</h4>
-                  <p>Lorem ipsum, dolor sit amet consectetur</p>
-                  <a href="assets/img/portfolio/branding-1.jpg" title="Branding 1" data-gallery="portfolio-gallery-branding" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
-                  <a href="portfolio-details.html" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-books">
-              <div class="portfolio-content h-100">
-                <img src="assets/img/portfolio/books-1.jpg" class="img-fluid" alt="">
-                <div class="portfolio-info">
-                  <h4>Books 1</h4>
-                  <p>Lorem ipsum, dolor sit amet consectetur</p>
-                  <a href="assets/img/portfolio/books-1.jpg" title="Branding 1" data-gallery="portfolio-gallery-book" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
-                  <a href="portfolio-details.html" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-app">
-              <div class="portfolio-content h-100">
-                <img src="assets/img/portfolio/app-2.jpg" class="img-fluid" alt="">
-                <div class="portfolio-info">
-                  <h4>App 2</h4>
-                  <p>Lorem ipsum, dolor sit amet consectetur</p>
-                  <a href="assets/img/portfolio/app-2.jpg" title="App 2" data-gallery="portfolio-gallery-app" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
-                  <a href="portfolio-details.html" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-product">
-              <div class="portfolio-content h-100">
-                <img src="assets/img/portfolio/product-2.jpg" class="img-fluid" alt="">
-                <div class="portfolio-info">
-                  <h4>Product 2</h4>
-                  <p>Lorem ipsum, dolor sit amet consectetur</p>
-                  <a href="assets/img/portfolio/product-2.jpg" title="Product 2" data-gallery="portfolio-gallery-product" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
-                  <a href="portfolio-details.html" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-branding">
-              <div class="portfolio-content h-100">
-                <img src="assets/img/portfolio/branding-2.jpg" class="img-fluid" alt="">
-                <div class="portfolio-info">
-                  <h4>Branding 2</h4>
-                  <p>Lorem ipsum, dolor sit amet consectetur</p>
-                  <a href="assets/img/portfolio/branding-2.jpg" title="Branding 2" data-gallery="portfolio-gallery-branding" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
-                  <a href="portfolio-details.html" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-books">
-              <div class="portfolio-content h-100">
-                <img src="assets/img/portfolio/books-2.jpg" class="img-fluid" alt="">
-                <div class="portfolio-info">
-                  <h4>Books 2</h4>
-                  <p>Lorem ipsum, dolor sit amet consectetur</p>
-                  <a href="assets/img/portfolio/books-2.jpg" title="Branding 2" data-gallery="portfolio-gallery-book" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
-                  <a href="portfolio-details.html" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-app">
-              <div class="portfolio-content h-100">
-                <img src="assets/img/portfolio/app-3.jpg" class="img-fluid" alt="">
-                <div class="portfolio-info">
-                  <h4>App 3</h4>
-                  <p>Lorem ipsum, dolor sit amet consectetur</p>
-                  <a href="assets/img/portfolio/app-3.jpg" title="App 3" data-gallery="portfolio-gallery-app" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
-                  <a href="portfolio-details.html" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-product">
-              <div class="portfolio-content h-100">
-                <img src="assets/img/portfolio/product-3.jpg" class="img-fluid" alt="">
-                <div class="portfolio-info">
-                  <h4>Product 3</h4>
-                  <p>Lorem ipsum, dolor sit amet consectetur</p>
-                  <a href="assets/img/portfolio/product-3.jpg" title="Product 3" data-gallery="portfolio-gallery-product" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
-                  <a href="portfolio-details.html" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-branding">
-              <div class="portfolio-content h-100">
-                <img src="assets/img/portfolio/branding-3.jpg" class="img-fluid" alt="">
-                <div class="portfolio-info">
-                  <h4>Branding 3</h4>
-                  <p>Lorem ipsum, dolor sit amet consectetur</p>
-                  <a href="assets/img/portfolio/branding-3.jpg" title="Branding 2" data-gallery="portfolio-gallery-branding" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
-                  <a href="portfolio-details.html" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-books">
-              <div class="portfolio-content h-100">
-                <img src="assets/img/portfolio/books-3.jpg" class="img-fluid" alt="">
-                <div class="portfolio-info">
-                  <h4>Books 3</h4>
-                  <p>Lorem ipsum, dolor sit amet consectetur</p>
-                  <a href="assets/img/portfolio/books-3.jpg" title="Branding 3" data-gallery="portfolio-gallery-book" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
-                  <a href="portfolio-details.html" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
-                </div>
-              </div>
-            </div> -->
-
-          </div><!-- End Portfolio Container -->
-
         </div>
-
+        <div class="projects-grid" id="projectsGrid"></div>
       </div>
+    </section>
 
-    </section><!-- /Portfolio Section -->
-
-    <!-- Services Section -->
-    <!-- <section id="services" class="services section">
-
-      
-      <div class="container section-title" data-aos="fade-up">
-        <h2>Services</h2>
-        <p>Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea. Quia fugiat sit in iste officiis commodi quidem hic quas.</p>
-      </div>
-
+    <section class="section" id="contact">
       <div class="container">
-
-        <div class="row gy-4">
-
-          <div class="col-lg-4 col-md-6 service-item d-flex" data-aos="fade-up" data-aos-delay="100">
-            <div class="icon flex-shrink-0"><i class="bi bi-briefcase"></i></div>
-            <div>
-              <h4 class="title"><a href="service-details.html" class="stretched-link">Lorem Ipsum</a></h4>
-              <p class="description">Voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident</p>
-            </div>
+        <div class="contact-card reveal">
+          <div><span class="eyebrow">Contact</span><h2>Let’s build something useful.</h2><p class="section-copy">For internships, engineering roles, collaboration, or project questions, reach out directly.</p></div>
+          <div class="contact-links">
+            <a href="mailto:garanovskiyvlad2005@gmail.com">Email</a>
+            <a href="https://www.linkedin.com/in/vladyslav-garanovskyi-b05132294" target="_blank" rel="noreferrer">LinkedIn</a>
+            <a href="https://www.instagram.com/ezzzz4?igsh=bHNibTIxbTBycXVz" target="_blank" rel="noreferrer">Instagram</a>
           </div>
-          
-
-          <div class="col-lg-4 col-md-6 service-item d-flex" data-aos="fade-up" data-aos-delay="200">
-            <div class="icon flex-shrink-0"><i class="bi bi-card-checklist"></i></div>
-            <div>
-              <h4 class="title"><a href="service-details.html" class="stretched-link">Dolor Sitema</a></h4>
-              <p class="description">Minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat tarad limino ata</p>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 service-item d-flex" data-aos="fade-up" data-aos-delay="300">
-            <div class="icon flex-shrink-0"><i class="bi bi-bar-chart"></i></div>
-            <div>
-              <h4 class="title"><a href="service-details.html" class="stretched-link">Sed ut perspiciatis</a></h4>
-              <p class="description">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur</p>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 service-item d-flex" data-aos="fade-up" data-aos-delay="400">
-            <div class="icon flex-shrink-0"><i class="bi bi-binoculars"></i></div>
-            <div>
-              <h4 class="title"><a href="service-details.html" class="stretched-link">Magni Dolores</a></h4>
-              <p class="description">Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</p>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 service-item d-flex" data-aos="fade-up" data-aos-delay="500">
-            <div class="icon flex-shrink-0"><i class="bi bi-brightness-high"></i></div>
-            <div>
-              <h4 class="title"><a href="service-details.html" class="stretched-link">Nemo Enim</a></h4>
-              <p class="description">At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque</p>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 service-item d-flex" data-aos="fade-up" data-aos-delay="600">
-            <div class="icon flex-shrink-0"><i class="bi bi-calendar4-week"></i></div>
-            <div>
-              <h4 class="title"><a href="service-details.html" class="stretched-link">Eiusmod Tempor</a></h4>
-              <p class="description">Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi</p>
-            </div>
-          </div>
-
         </div>
-
       </div>
-
-    </section> -->
-
-    <!-- Testimonials Section -->
-    <!-- <section id="testimonials" class="testimonials section light-background">
-
-      
-      <div class="container section-title" data-aos="fade-up">
-        <h2>Testimonials</h2>
-        <p>Necessitatibus eius consequatur ex aliquid fuga eum quidem sint consectetur velit</p>
-      </div>
-
-      <div class="container" data-aos="fade-up" data-aos-delay="100">
-
-        <div class="swiper init-swiper">
-          <script type="application/json" class="swiper-config">
-            {
-              "loop": true,
-              "speed": 600,
-              "autoplay": {
-                "delay": 5000
-              },
-              "slidesPerView": "auto",
-              "pagination": {
-                "el": ".swiper-pagination",
-                "type": "bullets",
-                "clickable": true
-              },
-              "breakpoints": {
-                "320": {
-                  "slidesPerView": 1,
-                  "spaceBetween": 40
-                },
-                "1200": {
-                  "slidesPerView": 3,
-                  "spaceBetween": 1
-                }
-              }
-            }
-          </script>
-          <div class="swiper-wrapper">
-
-            <div class="swiper-slide">
-              <div class="testimonial-item">
-                <p>
-                  <i class="bi bi-quote quote-icon-left"></i>
-                  <span>Proin iaculis purus consequat sem cure digni ssim donec porttitora entum suscipit rhoncus. Accusantium quam, ultricies eget id, aliquam eget nibh et. Maecen aliquam, risus at semper.</span>
-                  <i class="bi bi-quote quote-icon-right"></i>
-                </p>
-                <img src="assets/img/testimonials/testimonials-1.jpg" class="testimonial-img" alt="">
-                <h3>Saul Goodman</h3>
-                <h4>Ceo &amp; Founder</h4>
-              </div>
-            </div>
-
-            <div class="swiper-slide">
-              <div class="testimonial-item">
-                <p>
-                  <i class="bi bi-quote quote-icon-left"></i>
-                  <span>Export tempor illum tamen malis malis eram quae irure esse labore quem cillum quid malis quorum velit fore eram velit sunt aliqua noster fugiat irure amet legam anim culpa.</span>
-                  <i class="bi bi-quote quote-icon-right"></i>
-                </p>
-                <img src="assets/img/testimonials/testimonials-2.jpg" class="testimonial-img" alt="">
-                <h3>Sara Wilsson</h3>
-                <h4>Designer</h4>
-              </div>
-            </div>
-
-            <div class="swiper-slide">
-              <div class="testimonial-item">
-                <p>
-                  <i class="bi bi-quote quote-icon-left"></i>
-                  <span>Enim nisi quem export duis labore cillum quae magna enim sint quorum nulla quem veniam duis minim tempor labore quem eram duis noster aute amet eram fore quis sint minim.</span>
-                  <i class="bi bi-quote quote-icon-right"></i>
-                </p>
-                <img src="assets/img/testimonials/testimonials-3.jpg" class="testimonial-img" alt="">
-                <h3>Jena Karlis</h3>
-                <h4>Store Owner</h4>
-              </div>
-            </div>
-
-            <div class="swiper-slide">
-              <div class="testimonial-item">
-                <p>
-                  <i class="bi bi-quote quote-icon-left"></i>
-                  <span>Fugiat enim eram quae cillum dolore dolor amet nulla culpa multos export minim fugiat dolor enim duis veniam ipsum anim magna sunt elit fore quem dolore labore illum veniam.</span>
-                  <i class="bi bi-quote quote-icon-right"></i>
-                </p>
-                <img src="assets/img/testimonials/testimonials-4.jpg" class="testimonial-img" alt="">
-                <h3>Matt Brandon</h3>
-                <h4>Freelancer</h4>
-              </div>
-            </div>
-
-            <div class="swiper-slide">
-              <div class="testimonial-item">
-                <p>
-                  <i class="bi bi-quote quote-icon-left"></i>
-                  <span>Quis quorum aliqua sint quem legam fore sunt eram irure aliqua veniam tempor noster veniam sunt culpa nulla illum cillum fugiat legam esse veniam culpa fore nisi cillum quid.</span>
-                  <i class="bi bi-quote quote-icon-right"></i>
-                </p>
-                <img src="assets/img/testimonials/testimonials-5.jpg" class="testimonial-img" alt="">
-                <h3>John Larson</h3>
-                <h4>Entrepreneur</h4>
-              </div>
-            </div>
-
-          </div>
-          <div class="swiper-pagination"></div>
-        </div>
-
-      </div>
-
-    </section> -->
-
-    <!-- Contact Section -->
-    <!-- <section id="contact" class="contact section">
-
-      
-      <div class="container section-title" data-aos="fade-up">
-        <h2>Contact</h2>
-        <p>Necessitatibus eius consequatur ex aliquid fuga eum quidem sint consectetur velit</p>
-      </div>
-
-      <div class="container" data-aos="fade-up" data-aos-delay="100">
-
-        <div class="row gy-4">
-
-          <div class="col-lg-5">
-
-            <div class="info-wrap">
-              <div class="info-item d-flex" data-aos="fade-up" data-aos-delay="200">
-                <i class="bi bi-geo-alt flex-shrink-0"></i>
-                <div>
-                  <h3>Address</h3>
-                  <p>A108 Adam Street, New York, NY 535022</p>
-                </div>
-              </div>
-
-              <div class="info-item d-flex" data-aos="fade-up" data-aos-delay="300">
-                <i class="bi bi-telephone flex-shrink-0"></i>
-                <div>
-                  <h3>Call Us</h3>
-                  <p>+1 5589 55488 55</p>
-                </div>
-              </div>
-
-              <div class="info-item d-flex" data-aos="fade-up" data-aos-delay="400">
-                <i class="bi bi-envelope flex-shrink-0"></i>
-                <div>
-                  <h3>Email Us</h3>
-                  <p>info@example.com</p>
-                </div>
-              </div>
-
-              <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d48389.78314118045!2d-74.006138!3d40.710059!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c25a22a3bda30d%3A0xb89d1fe6bc499443!2sDowntown%20Conference%20Center!5e0!3m2!1sen!2sus!4v1676961268712!5m2!1sen!2sus" frameborder="0" style="border:0; width: 100%; height: 270px;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-            </div>
-          </div>
-
-          <div class="col-lg-7">
-            <form action="forms/contact.php" method="post" class="php-email-form" data-aos="fade-up" data-aos-delay="200">
-              <div class="row gy-4">
-
-                <div class="col-md-6">
-                  <label for="name-field" class="pb-2">Your Name</label>
-                  <input type="text" name="name" id="name-field" class="form-control" required="">
-                </div>
-
-                <div class="col-md-6">
-                  <label for="email-field" class="pb-2">Your Email</label>
-                  <input type="email" class="form-control" name="email" id="email-field" required="">
-                </div>
-
-                <div class="col-md-12">
-                  <label for="subject-field" class="pb-2">Subject</label>
-                  <input type="text" class="form-control" name="subject" id="subject-field" required="">
-                </div>
-
-                <div class="col-md-12">
-                  <label for="message-field" class="pb-2">Message</label>
-                  <textarea class="form-control" name="message" rows="10" id="message-field" required=""></textarea>
-                </div>
-
-                <div class="col-md-12 text-center">
-                  <div class="loading">Loading</div>
-                  <div class="error-message"></div>
-                  <div class="sent-message">Your message has been sent. Thank you!</div>
-
-                  <button type="submit">Send Message</button>
-                </div>
-
-              </div>
-            </form>
-          </div>
-
-        </div>
-
-      </div>
-
-    </section> -->
-
+    </section>
   </main>
 
-  <footer id="footer" class="footer position-relative light-background">
+  <footer><div class="container">© <span id="year"></span> Vladyslav Garanovskyi. Built from scratch.</div></footer>
 
-    <div class="container">
-      <div class="copyright text-center ">
-        <p>© <span>Copyright</span> <strong class="px-1 sitename">iPortfolio</strong> <span>All Rights Reserved</span></p>
-      </div>
-      <div class="credits">
-        <!-- All the links in the footer should remain intact. -->
-        <!-- You can delete the links only if you've purchased the pro version. -->
-        <!-- Licensing information: https://bootstrapmade.com/license/ -->
-        <!-- Purchase the pro version with working PHP/AJAX contact form: [buy-url] -->
-        Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a> Distributed by <a href="https://themewagon.com">ThemeWagon</a>
-      </div>
-    </div>
+  <script>
+    const projects = [
+      {
+        date: "July 2026", title: "Dental Shade Matcher FPGA", category: "FPGA · LuxDen", filters: ["hardware", "ai"],
+        description: "An FPGA-based dental tool using an OV5640 camera, LCD display, and a centroid-model AI workflow to identify tooth shades for dental technicians.",
+        tags: ["FPGA", "Verilog", "OV5640", "LCD", "AI"], url: "https://github.com/VladGaranovskyi/DentalShadeMatcherFPGA", linkLabel: "GitHub",
+        images: ["assets/img/FPGA/1.jpg", "assets/img/FPGA/2.jpg"]
+      },
+      {
+        date: "June 2026", title: "Pico Network Monitor", category: "Embedded Systems", filters: ["hardware"],
+        description: "A Raspberry Pi Pico W device that connects to Wi-Fi, displays its DHCP-assigned IP on a 16×2 I²C LCD, and reports network status and errors over WebSockets and UART.",
+        tags: ["Pico W", "Embedded C", "Wi-Fi", "I²C", "UART"], url: "https://github.com/VladGaranovskyi/Pico_Network_monitor", linkLabel: "GitHub",
+        images: ["assets/img/Pico_Network/1.jpg", "assets/img/Pico_Network/2.png"]
+      },
+      {
+        date: "Feb–May 2026", title: "CourseTrek", category: "AI Web App · CCNY Internship", filters: ["ai", "web"],
+        description: "An AI-assisted planning tool that selects an optimal path to graduation from completed coursework and provides enrollment analytics and forecasts for the registrar’s office.",
+        tags: ["AI", "Optimization", "Analytics", "Web App"], url: "", linkLabel: "In development",
+        images: ["assets/img/CourseTrek/1.png", "assets/img/CourseTrek/2.png", "assets/img/CourseTrek/3.png"]
+      },
+      {
+        date: "March 2026", title: "Helix: Gamifying Accessibility", category: "AI Web App · NYU Buildathon", filters: ["ai", "web", "game"],
+        description: "A rehabilitation racing game controlled through head movement, arms, phone buttons, or accelerometer input. The app records attempts and tracks user progress. Winner of the Most Creative Award.",
+        tags: ["Accessibility", "Computer Vision", "Game", "Hackathon"], url: "https://github.com/maxtkach/ustarter", linkLabel: "GitHub",
+        images: ["assets/img/Helix/1.jpg", "assets/img/Helix/2.jpg", "assets/img/Helix/3.jpg"]
+      },
+      {
+        date: "December 2025", title: "3D Renderer", category: "Desktop App · CS Final Project", filters: ["hardware"],
+        description: "A basic 3D renderer written in C++ with SDL2. It projects objects into camera space, draws edges based on distance, and imports .obj model files.",
+        tags: ["C++", "SDL2", "3D Math", "OBJ Parser"], url: "https://github.com/VladGaranovskyi/3D_Renderer_CS103", linkLabel: "GitHub",
+        images: ["assets/img/3D/1.jpg", "assets/img/3D/2.jpg", "assets/img/3D/3.jpg"]
+      },
+      {
+        date: "September 2025", title: "reciPal", category: "AI Web App · BYTE HACKS 2025", filters: ["ai", "web"],
+        description: "A hackathon app that transforms Instagram cooking reels into structured recipes with ingredients and step-by-step instructions.",
+        tags: ["AI", "Transcription", "Web App", "Hackathon"], url: "https://github.com/VladGaranovskyi/reciPal", linkLabel: "GitHub",
+        images: ["assets/img/reciPal/1.png", "assets/img/reciPal/2.png"]
+      },
+      {
+        date: "August 2025", title: "Logic-Gate Computer in Garry’s Mod", category: "Prototype", filters: ["hardware", "game"],
+        description: "A custom computer built inside Garry’s Mod with an ALU, program counter, 128 bytes of RAM, and a control unit using only logic gates, D/JK flip-flops, and a clock.",
+        tags: ["Digital Logic", "ALU", "RAM", "CPU Design"], url: "", linkLabel: "No public link",
+        images: ["assets/img/Gmod/1.jpg", "assets/img/Gmod/2.jpg"]
+      },
+      {
+        date: "March 2025–Present", title: "Luxiglasses", category: "B2B E-commerce", filters: ["web"],
+        description: "A custom e-commerce platform with Stripe payments, deployed to DigitalOcean with Docker. Backend stack: Python, Django, Redis, and PostgreSQL, with security testing for common web attacks.",
+        tags: ["Django", "Stripe", "Docker", "PostgreSQL", "Security"], url: "", linkLabel: "Temporarily unavailable",
+        images: ["assets/img/Luxiglasses/1.png", "assets/img/Luxiglasses/2.png", "assets/img/Luxiglasses/3.png"]
+      },
+      {
+        date: "October 2024–Present", title: "Interactive 3D College Map", category: "App Development · CS Club", filters: ["game"],
+        description: "A Kingsborough Community College wayfinding project with 3D building navigation and point-to-point pathfinding, developed with the Computer Science Club and supported by the college CIO.",
+        tags: ["Unity", "3D", "Pathfinding", "Wayfinding"], url: "https://ezzzz4.itch.io/kbcc-wayfinder", linkLabel: "Live demo",
+        images: ["assets/img/3DCollegeMap/1.png", "assets/img/3DCollegeMap/2.png", "assets/img/3DCollegeMap/3.png", "assets/img/3DCollegeMap/4.png"]
+      },
+      {
+        date: "September 2023", title: "Kopyoff Dental Art", category: "Client Website", filters: ["web"],
+        description: "A custom website for a dental practice with an admin panel, appointment management, and a polished landing page, created as an early real-world web development project.",
+        tags: ["Web Development", "Admin Panel", "Appointments"], url: "https://www.kopyoffdental.com/", linkLabel: "Visit website",
+        images: ["assets/img/KopyoffDentalArt/1.png", "assets/img/KopyoffDentalArt/2.png", "assets/img/KopyoffDentalArt/3.png"]
+      },
+      {
+        date: "November 2022", title: "Kind-Money", category: "Game Development · JTA GameJam", filters: ["game"],
+        description: "A four-player 3D web game created for the JTA GameJam—essentially a two-dimensional Monopoly-style experience where players choose their path.",
+        tags: ["Unity", "Web Game", "Multiplayer", "Game Jam"], url: "https://ezzzz4.itch.io/kindmoney", linkLabel: "Play on itch.io",
+        images: ["assets/img/Kind-Money/1.png", "assets/img/Kind-Money/2.png", "assets/img/Kind-Money/3.png"]
+      },
+      {
+        date: "August 2022", title: "Hook Run 3D", category: "Android Game", filters: ["game"],
+        description: "A Unity game independently published on Google Play after receiving development guidance from YSO Corp. It reached more than 1,000 downloads.",
+        tags: ["Unity", "C#", "Android", "1,000+ Downloads"], url: "https://play.google.com/store/apps/details?id=com.Ezzzz4.HookRun3D", linkLabel: "Google Play",
+        images: ["assets/img/HookRun3D/1.png", "assets/img/HookRun3D/2.png", "assets/img/HookRun3D/3.png", "assets/img/HookRun3D/4.png"]
+      },
+      {
+        date: "March 2021", title: "R6Random", category: "Android App", filters: ["game"],
+        description: "A Rainbow Six Siege randomizer for operators, maps, team setups, and settings, built as an Android application with Python and KivyMD.",
+        tags: ["Python", "KivyMD", "Android", "Utility App"], url: "", linkLabel: "No longer listed",
+        images: ["assets/img/R6Random/1.png", "assets/img/R6Random/2.png"]
+      }
+    ];
 
-  </footer>
+    const grid = document.getElementById('projectsGrid');
+    const escapeHtml = value => value.replace(/[&<>'"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]));
 
-  <!-- Scroll Top -->
-  <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+    function renderProjects() {
+      grid.innerHTML = projects.map((project, projectIndex) => `
+        <article class="project-card reveal" data-filters="${project.filters.join(' ')}">
+          <div class="project-media">
+            <div class="main-image-wrap">
+              <img class="main-image" src="${project.images[0]}" alt="${escapeHtml(project.title)} project preview" loading="lazy" />
+              <span class="image-count">1 / ${project.images.length}</span>
+            </div>
+            ${project.images.length > 1 ? `<div class="thumbs" aria-label="Additional ${escapeHtml(project.title)} images">
+              ${project.images.map((image, imageIndex) => `<button class="thumb ${imageIndex === 0 ? 'active' : ''}" data-project="${projectIndex}" data-image="${imageIndex}" aria-label="Show image ${imageIndex + 1}"><img src="${image}" alt="" loading="lazy" /></button>`).join('')}
+            </div>` : ''}
+          </div>
+          <div class="project-body">
+            <div class="project-topline"><span>${escapeHtml(project.category)}</span><time>${escapeHtml(project.date)}</time></div>
+            <h3>${escapeHtml(project.title)}</h3>
+            <p>${escapeHtml(project.description)}</p>
+            <div class="project-tags">${project.tags.map(tag => `<span>${escapeHtml(tag)}</span>`).join('')}</div>
+            <div class="project-links">${project.url ? `<a class="project-link" href="${project.url}" target="_blank" rel="noreferrer">${escapeHtml(project.linkLabel)} ↗</a>` : `<span class="project-link muted">${escapeHtml(project.linkLabel)}</span>`}</div>
+          </div>
+        </article>
+      `).join('');
+      observeReveals();
+    }
 
-  <!-- Preloader -->
-  <div id="preloader"></div>
+    grid.addEventListener('click', event => {
+      const thumb = event.target.closest('.thumb');
+      if (!thumb) return;
+      const card = thumb.closest('.project-card');
+      const projectIndex = Number(thumb.dataset.project);
+      const imageIndex = Number(thumb.dataset.image);
+      const mainImage = card.querySelector('.main-image');
+      mainImage.style.opacity = '0';
+      setTimeout(() => {
+        mainImage.src = projects[projectIndex].images[imageIndex];
+        card.querySelector('.image-count').textContent = `${imageIndex + 1} / ${projects[projectIndex].images.length}`;
+        mainImage.style.opacity = '1';
+      }, 120);
+      card.querySelectorAll('.thumb').forEach(item => item.classList.remove('active'));
+      thumb.classList.add('active');
+    });
 
-  <!-- Vendor JS Files -->
-  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script src="assets/vendor/php-email-form/validate.js"></script>
-  <script src="assets/vendor/aos/aos.js"></script>
-  <script src="assets/vendor/typed.js/typed.umd.js"></script>
-  <script src="assets/vendor/purecounter/purecounter_vanilla.js"></script>
-  <script src="assets/vendor/waypoints/noframework.waypoints.js"></script>
-  <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
-  <script src="assets/vendor/imagesloaded/imagesloaded.pkgd.min.js"></script>
-  <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
-  <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
+    document.querySelectorAll('.filter-btn').forEach(button => {
+      button.addEventListener('click', () => {
+        document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+        button.classList.add('active');
+        const filter = button.dataset.filter;
+        document.querySelectorAll('.project-card').forEach(card => {
+          card.hidden = filter !== 'all' && !card.dataset.filters.split(' ').includes(filter);
+        });
+      });
+    });
 
-  <!-- Main JS File -->
-  <script src="assets/js/main.js"></script>
+    const menuBtn = document.querySelector('.menu-btn');
+    const navLinks = document.querySelector('.nav-links');
+    menuBtn.addEventListener('click', () => {
+      const open = navLinks.classList.toggle('open');
+      menuBtn.setAttribute('aria-expanded', String(open));
+    });
+    navLinks.addEventListener('click', () => {
+      navLinks.classList.remove('open');
+      menuBtn.setAttribute('aria-expanded', 'false');
+    });
 
+    function observeReveals() {
+      const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: .08 });
+      document.querySelectorAll('.reveal:not(.visible)').forEach(item => observer.observe(item));
+    }
+
+    renderProjects();
+    observeReveals();
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
 </body>
-
 </html>
